@@ -104,11 +104,11 @@ public class RoomController {
 	@GetMapping("/img/{filename}")
 	@ResponseBody
 	public ResponseEntity<Resource> getFile(@PathVariable String filename) {
-		Thread t = new Thread();
-		t.start();
+//		Thread t = new Thread();
+//		t.start();
 		Resource file = storageService.loadImgRoom(filename);
 //		try {
-//			Thread.sleep(1000);
+//			Thread.sleep(5000);
 //		} catch (InterruptedException e) {
 //			e.printStackTrace();
 //		}

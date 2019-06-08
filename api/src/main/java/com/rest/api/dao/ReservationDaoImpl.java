@@ -28,7 +28,7 @@ public class ReservationDaoImpl implements ReservationDao{
 		String sql = "SELECT reservation.*,room.name AS room_name,user.firstname AS user_name FROM reservation "
 				+ "INNER JOIN room ON reservation.room_id = room.id "
 				+ "INNER JOIN user ON reservation.user_id = user.id "
-				+ "ORDER BY reservation.date DESC";
+				+ "ORDER BY reservation.date, reservation.time DESC";
 		List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql);
 
 		return rows;

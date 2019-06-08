@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 06, 2019 at 09:22 AM
+-- Generation Time: Jun 08, 2019 at 04:42 AM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.3.1
 
@@ -62,12 +62,8 @@ CREATE TABLE `payment` (
 --
 
 INSERT INTO `payment` (`id`, `date`, `user_id`, `reserve_id`, `payment_img`) VALUES
-(5, '04/06/2019', 2, 5, 'NewSimTruePack.png'),
-(6, '04/06/2019', 2, 6, 'profile_default.jpg'),
-(7, '04/06/2019', 11, 8, 'unnamed.jpg'),
-(8, '04/06/2019', 4, 7, 'detective_pikachu_trailer_25_1920.0.jpg'),
-(9, '05/06/2019', 3, 10, 'unnamed.jpg'),
-(12, '05/06/2019', 11, 14, 'images.jpg');
+(3, '07/06/2019', 1, 4, 'ex_payment1.jpg'),
+(4, '07/06/2019', 11, 6, 'ex_payment2.jpg');
 
 -- --------------------------------------------------------
 
@@ -91,18 +87,10 @@ CREATE TABLE `reservation` (
 --
 
 INSERT INTO `reservation` (`id`, `date`, `room_id`, `time`, `hours`, `totalprice`, `user_id`, `reserve_status`) VALUES
-(1, '03/06/2019', 1, '12.30-13.30 น.', '1 ชม.', '250', 3, '0'),
-(2, '03/06/2019', 1, '14.30-16.30 น.', '2 ชม.', '500', 3, '0'),
-(3, '03/06/2019', 1, '17.30-19.30 น.', '2 ชม.', '500', 1, '0'),
-(4, '03/06/2019', 1, '20.30-21.30 น.', '1 ชม.', '250', 2, '0'),
-(5, '04/06/2019', 1, '12.30-14.30 น.', '2 ชม.', '500', 2, '1'),
-(6, '04/06/2019', 1, '15.30-16.30 น.', '1 ชม.', '250', 2, '2'),
-(7, '04/06/2019', 2, '17.30-21.30 น.', '4 ชม.', '800', 4, '1'),
-(8, '04/06/2019', 2, '12.30-14.30 น.', '2 ชม.', '400', 11, '2'),
-(9, '04/06/2019', 5, '12.30-16.30 น.', '4 ชม.', '400', 3, '0'),
-(10, '06/06/2019', 1, '14.30-16.30 น.', '2 ชม.', '500', 3, '2'),
-(11, '05/06/2019', 1, '12.30-14.30 น.', '2 ชม.', '500', 3, '0'),
-(14, '28/06/2019', 1, '12.30-16.30 น.', '4 ชม.', '1000', 11, '2');
+(4, '07/06/2019', 1, '12.30-14.30 น.', '2 ชม.', '500', 1, '1'),
+(5, '07/06/2019', 1, '15.30-18.30 น.', '3 ชม.', '750', 4, '0'),
+(6, '07/06/2019', 1, '18.30-19.30 น.', '1 ชม.', '250', 11, '1'),
+(7, '08/06/2019', 1, '12.30-14.30 น.', '2 ชม.', '500', 11, '0');
 
 -- --------------------------------------------------------
 
@@ -164,12 +152,8 @@ INSERT INTO `room_img` (`id`, `room_id`, `type_img`, `name_img`, `alt_img`) VALU
 (14, 3, 'N', '5S.jpg', '5S.jpg'),
 (15, 3, 'N', '6S.jpg', '6S.jpg'),
 (16, 3, 'N', '12967288_1125566054140432_3562326539030863891_o.jpg', '12967288_1125566054140432_3562326539030863891_o.jpg'),
-(17, 1, 'N', 'unnamed.jpg', 'unnamed.jpg'),
-(18, 1, 'N', 'detective_pikachu_trailer_25_1920.0.jpg', 'detective_pikachu_trailer_25_1920.0.jpg'),
 (21, 5, 'B', 'images.jpg', 'images.jpg'),
-(22, 5, 'N', 'detective_pikachu_trailer_25_1920.0.jpg', 'detective_pikachu_trailer_25_1920.0.jpg'),
-(23, 5, 'B', 'images.jpg', 'images.jpg'),
-(24, 5, 'N', 'unnamed.jpg', 'unnamed.jpg');
+(23, 5, 'B', 'images.jpg', 'images.jpg');
 
 -- --------------------------------------------------------
 
@@ -199,7 +183,7 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id`, `role`, `email`, `password`, `firstname`, `lastname`, `gender`, `birthday`, `address`, `tel`, `img_user`, `user_status`) VALUES
 (1, 'm', 'cakey@gmail.com', 'cake1234', 'cake', 'sotoy', 'm', '01/06/1997', 'ถนน องค์การบริหารส่วนจังหวัด หมู่ 2 ตำบล กำแพงแสน อำเภอ กำแพงแสน นครปฐม 73140', '0838128484', 'default.jpg', '1'),
 (2, 'm', 'cakeky2@gmail.com', 'cake1234', 'nongcake', 'sotoy', 'm', '01/06/1997', 'ถนน องค์การบริหารส่วนจังหวัด หมู่ 2 ตำบล กำแพงแสน อำเภอ กำแพงแสน นครปฐม 73140', '0812345678', 'default.jpg', '1'),
-(3, 'm', 'test@gmail.com', '1234', 'test567', 'ichigooo1', 'female', '19/02/1996', 'ดาวดวงใหญ่ที่มีไดโนเสาร์', '0987654321', '5.jpeg', '1'),
+(3, 'm', 'test@gmail.com', '1234', 'test567', 'ichigooo1', 'female', '19/02/1996', 'ดาวดวงใหญ่ที่มีไดโนเสาร์', '0987654321', 'default.jpg', '1'),
 (4, 'm', 'test2@gmail.com', '1234', 'test', 'testernaja', 'female', '19/02/1996', 'ดาวนาเเม็ก', '0987654321', 'default.jpg', '1'),
 (9, 'm', 'kuroky@gmail.com', '1232456', 'Tee', 'Fongsabuu', 'Male', '01/06/2019', '70/939 เเฟลต สวนกวนตุ้ง ถ. พระราม 4 เเขวง ป้อมปราบ', '0826584786', 'default.jpg', '1'),
 (10, 'a', 'admin@gmail.com', 'ad1234', 'Admin', 'Super', 'male', '12/12/1988', 'ดาวไซย่า', '66236987169', 'default.jpg', '1'),
@@ -267,13 +251,13 @@ ALTER TABLE `banner`
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `reservation`
 --
 ALTER TABLE `reservation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `room`
