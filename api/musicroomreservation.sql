@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 08, 2019 at 04:42 AM
+-- Generation Time: Jun 09, 2019 at 09:09 PM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.3.1
 
@@ -57,14 +57,6 @@ CREATE TABLE `payment` (
   `payment_img` varchar(1024) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `payment`
---
-
-INSERT INTO `payment` (`id`, `date`, `user_id`, `reserve_id`, `payment_img`) VALUES
-(3, '07/06/2019', 1, 4, 'ex_payment1.jpg'),
-(4, '07/06/2019', 11, 6, 'ex_payment2.jpg');
-
 -- --------------------------------------------------------
 
 --
@@ -81,16 +73,6 @@ CREATE TABLE `reservation` (
   `user_id` int(11) NOT NULL,
   `reserve_status` char(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `reservation`
---
-
-INSERT INTO `reservation` (`id`, `date`, `room_id`, `time`, `hours`, `totalprice`, `user_id`, `reserve_status`) VALUES
-(4, '07/06/2019', 1, '12.30-14.30 น.', '2 ชม.', '500', 1, '1'),
-(5, '07/06/2019', 1, '15.30-18.30 น.', '3 ชม.', '750', 4, '0'),
-(6, '07/06/2019', 1, '18.30-19.30 น.', '1 ชม.', '250', 11, '1'),
-(7, '08/06/2019', 1, '12.30-14.30 น.', '2 ชม.', '500', 11, '0');
 
 -- --------------------------------------------------------
 
@@ -251,13 +233,13 @@ ALTER TABLE `banner`
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `reservation`
 --
 ALTER TABLE `reservation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `room`
@@ -269,7 +251,7 @@ ALTER TABLE `room`
 -- AUTO_INCREMENT for table `room_img`
 --
 ALTER TABLE `room_img`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `user`
