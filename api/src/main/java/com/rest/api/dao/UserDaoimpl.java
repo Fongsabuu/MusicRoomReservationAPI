@@ -101,18 +101,15 @@ public class UserDaoimpl implements UserDao {
 			userTemp.setAddress((String) row.get("address"));
 			userTemp.setTel((String) row.get("tel"));
 			userTemp.setImg_user((String) row.get("img_user"));
-			userTemp.setUser_status(((String) row.get("user_status")).charAt(0));
-
-
-//			sql = "SELECT id_book FROM favor WHERE id_user = ?";
-//			List<Map<String, Object>> favor = jdbcTemplate.queryForList(sql, new Object[] { (int) row.get("id_user") });
-//
-//			userTemp.setFavor(favor);
-			
+			userTemp.setUser_status(((String) row.get("user_status")).charAt(0));			
 			users.add(userTemp);
 		}
-
-		return users;
+		System.out.println(users.get(0).getUser_status());
+		if(users.get(0).getUser_status() == '0') {
+			return null;
+		}else {
+			return users;
+		}
 	}
 
 	@Override
@@ -187,6 +184,17 @@ public class UserDaoimpl implements UserDao {
 		}
 
 		return users;
+	}
+
+	@Override
+	public int updateUserStatus(int user_id, String user_status) {
+		try {		
+			String sql = "UPDATE user SET user_status = '"+ (user_status).charAt(0) +"' WHERE id = ?";
+			return jdbcTemplate.update(sql,user_id);
+		} catch (DuplicateKeyException e) {
+			System.out.println(e);
+			return 0;
+		}
 	}
 
 }

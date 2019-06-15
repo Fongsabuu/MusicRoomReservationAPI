@@ -36,7 +36,13 @@ public class ReservationDaoImpl implements ReservationDao{
 
 	@Override
 	public List<Map<String, Object>> getReservationByDate(String date) {
-		String sql = "SELECT reservation.*, room.name FROM reservation LEFT JOIN room ON reservation.room_id = room.id "
+//		String sql = "SELECT reservation.*, room.name AS room_name ,user.firstname AS user_name "
+//				+ "LEFT JOIN room ON reservation.room_id = room.id "
+//				+ "INNER JOIN user ON reservation.user_id = user.id "
+//				+ "WHERE reservation.date >= ? ORDER BY reservation.date DESC";
+		String sql = "SELECT reservation.*, room.name AS room_name ,user.firstname AS user_name FROM reservation "
+				+ "LEFT JOIN room ON reservation.room_id = room.id "
+				+ "INNER JOIN user ON reservation.user_id = user.id "
 				+ "WHERE reservation.date >= ? ORDER BY reservation.date DESC";
 		List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, new Object[] { date });
 
@@ -80,7 +86,12 @@ public class ReservationDaoImpl implements ReservationDao{
 
 	@Override
 	public List<Map<String, Object>> getReservationForUser(String date, int user_id) {
-		String sql = "SELECT reservation.*, room.name FROM reservation LEFT JOIN room ON reservation.room_id = room.id "
+//		String sql = "SELECT reservation.*, room.name AS room_name ,user.firstname AS user_name FROM reservation LEFT JOIN room ON reservation.room_id = room.id "
+//				+ "INNER JOIN user ON reservation.user_id = user.id"
+//				+ "WHERE reservation.date >= ? AND reservation.user_id = ? ORDER BY reservation.date DESC";
+		String sql = "SELECT reservation.*, room.name AS room_name ,user.firstname AS user_name FROM reservation "
+				+ "LEFT JOIN room ON reservation.room_id = room.id "
+				+ "INNER JOIN user ON reservation.user_id = user.id "
 				+ "WHERE reservation.date >= ? AND reservation.user_id = ? ORDER BY reservation.date DESC";
 		List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql,	new Object[] { date, user_id });
 

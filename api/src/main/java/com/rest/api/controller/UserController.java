@@ -93,4 +93,9 @@ public class UserController {
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
 				.body(file);
 	}
+    
+    @PostMapping("/updateuserstatus/")
+    public int updateUserStatus(@RequestParam("user_id") String user_id, @RequestParam("user_status") String user_status) {
+    	return userService.updateUserStatus(Integer.parseInt(user_id), user_status);
+    }
 }

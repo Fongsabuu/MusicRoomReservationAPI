@@ -14,6 +14,7 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
@@ -62,8 +63,8 @@ public class CreatePDFBill {
 				document.add(tap);
 
 				PdfPTable table = new PdfPTable(new float[] { 1, 1, 1, 1, 1, 1 });
-				table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
-				table.addCell("No.");
+				PdfPCell no_room = new PdfPCell(new Paragraph("No.", font));
+				table.addCell(no_room);
 				PdfPCell head_room = new PdfPCell(new Paragraph("ห้อง", font));
 				table.addCell(head_room);
 				PdfPCell head_date = new PdfPCell(new Paragraph("วันที่", font));
@@ -74,14 +75,14 @@ public class CreatePDFBill {
 				table.addCell(head_hours);
 				PdfPCell head_price = new PdfPCell(new Paragraph("ราคา", font));
 				table.addCell(head_price);
-				table.addCell("	");
 				table.setHeaderRows(1);
 				PdfPCell[] cells = table.getRow(0).getCells();
 				for (int j = 0; j < cells.length; j++) {
 					cells[j].setBackgroundColor(BaseColor.GRAY);
 				}
 				
-				table.addCell("1");
+				PdfPCell cell_no = new PdfPCell(new Paragraph("1", font));
+				table.addCell(cell_no);
 				PdfPCell cell_room = new PdfPCell(new Paragraph((String) row.get("room_name"), font));
 				table.addCell(cell_room);
 				PdfPCell cell_date = new PdfPCell(new Paragraph((String) row.get("date"), font));
@@ -92,15 +93,19 @@ public class CreatePDFBill {
 				table.addCell(cell_hours);
 				PdfPCell cell_price = new PdfPCell(new Paragraph((String) row.get("totalprice"), font));
 				table.addCell(cell_price);
+				//table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.setTotalWidth(PageSize.A4.getWidth());
+			    table.setLockedWidth(true);
 				document.add(table);
 
-				Paragraph pay_total = new Paragraph("ยอดชำระ : "+(String) row.get("totalprice"), font);
+				Paragraph pay_total = new Paragraph("ยอดชำระ : "+(String) row.get("totalprice") + " บาท", font);
 				pay_total.setAlignment(Element.ALIGN_RIGHT);
 				document.add(pay_total);
-				Paragraph pay_rew = new Paragraph("ชำระเเล้ว : "+(String) row.get("totalprice"), font);
+				Paragraph pay_rew = new Paragraph("ชำระเเล้ว : "+(String) row.get("totalprice")+ " บาท", font);
 				pay_rew.setAlignment(Element.ALIGN_RIGHT);
 				document.add(pay_rew);
-				Paragraph pay_cal = new Paragraph("คงเหลือ : 0", font);
+				Paragraph pay_cal = new Paragraph("คงเหลือ : 0 บาท", font);
 				pay_cal.setAlignment(Element.ALIGN_RIGHT);
 				document.add(pay_cal);
 				

@@ -18,4 +18,6 @@ public interface UserDao {
 	public int deleteUser(int id);
 	
 	public int UpdateImgUser(int user_id, String img_name);
+	
+	public int updateUserStatus(int user_id, String user_status);
 }

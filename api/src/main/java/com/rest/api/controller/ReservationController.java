@@ -30,6 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.rest.api.model.Payment;
 import com.rest.api.model.Reservation;
+import com.rest.api.model.User_Report;
 import com.rest.api.service.CreatePDFBill;
 import com.rest.api.service.ReservationService;
 import com.rest.api.service.StorageService;
@@ -55,6 +56,9 @@ public class ReservationController {
 	@PostMapping("/")
 	private int insertReservation(@RequestBody Reservation reservation) {
 		try {
+			if(checkUserStatus(reservation.getUser_id())) {
+				return 404404404;
+			}
 			// check time before insert here
 			List<Reservation> reservations = new ArrayList<Reservation>();
 			List<String> reserve_byuser = new ArrayList<String>();
@@ -136,11 +140,17 @@ public class ReservationController {
 	
 	@PostMapping("/foruser/{id}")
 	private List<Map<String, Object>> getReservationForUser(@RequestBody String date, @PathVariable("id") int user_id) {
+		if(checkUserStatus(user_id)) {
+			return null;
+		}
 		return reservationService.getReservationForUser(date, user_id);
 	}
 	
 	@GetMapping("/user/{id}")
 	private List<Map<String, Object>> getReservationByUserId(@PathVariable("id") int user_id) {
+		if(checkUserStatus(user_id)) {
+			return null;
+		}
 		return reservationService.getReservationByUserId(user_id);
 	}
 	
@@ -188,8 +198,40 @@ public class ReservationController {
 				.body(file);
 	}
     
-    
-    
+    @GetMapping("/userreport/")
+  	@ResponseBody
+  	public List<User_Report> getUserReport() {
+    	try {
+    		List<User_Report> userreports = new ArrayList<User_Report>();
+        	String sql = "SELECT id, firstname, user_status FROM user WHERE role != 'a' ";
+    		List<Map<String, Object>> userlist = jdbcTemplate.queryForList(sql,new Object[] { });
+    		System.out.println(userlist);
+    		int i = 1;
+    		for (Map<String, Object> row : userlist) {
+    			sql = "SELECT (SELECT COUNT(*) FROM reservation WHERE reservation.reserve_status = 0 AND reservation.user_id = " + (int) row.get("id") + ") AS status_0," + 
+    					"(SELECT COUNT(*) FROM reservation WHERE reservation.reserve_status = 1 AND reservation.user_id = " + (int) row.get("id") + ") AS status_1," + 
+    					"(SELECT COUNT(*) FROM reservation WHERE reservation.reserve_status = 2 AND reservation.user_id = " + (int) row.get("id") +") AS status_2," + 
+    					"(SELECT COUNT(*) FROM reservation WHERE reservation.reserve_status = 3 AND reservation.user_id = " + (int) row.get("id") +") AS status_3";
+    			Map<String, Object> reservelist = jdbcTemplate.queryForMap(sql);
+    			User_Report userreport = new User_Report();
+    			userreport.setIndex(i);
+    			userreport.setUser_name((String) row.get("firstname"));
+    			userreport.setUser_id((int) row.get("id"));
+    			userreport.setUser_status(((String) row.get("user_status")).charAt(0));
+    			userreport.setReserve_status_0((int)((long)reservelist.get("status_0")));
+    			userreport.setReserve_status_1((int)((long)reservelist.get("status_1")));
+    			userreport.setReserve_status_2((int)((long)reservelist.get("status_2")));
+    			userreport.setReserve_status_3((int)((long)reservelist.get("status_3")));
+    			userreports.add(userreport);
+    			i++;
+    		}
+    		return userreports;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ArrayList<User_Report>();
+		}
+  	}
+      
     public int insertPayment(String filename, String date, int user_id, int reserve_id){
     	String sql = "INSERT INTO payment (date, user_id, reserve_id, payment_img) VALUES (?, ?, ?, ?) ";
 		KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -210,5 +252,14 @@ public class ReservationController {
 		} else {
 			return 0;
 		}
+    }
+    
+    public boolean checkUserStatus(int user_id) {
+    	String sql = "SELECT * FROM user WHERE id = ?";
+    	Map<String, Object> user = jdbcTemplate.queryForMap(sql, new Object[] { user_id });
+		if(((String)user.get("user_status")).charAt(0) == '0'){
+			return true;
+		}	
+    	return false;
     }
 }
